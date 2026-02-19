@@ -9,6 +9,9 @@ use App\Models\UserBase;
 
 final class UnitTest
 {
+    /**
+     * Runs all unit tests in sequence.
+     */
     public static function run(): void
     {
         ini_set('assert.exception', '1');
@@ -22,6 +25,9 @@ final class UnitTest
         echo "All unit tests passed ✅\n";
     }
 
+    /**
+     * Fails the test run when a condition is false.
+     */
     private static function expect(bool $condition, string $message): void
     {
         if (!$condition) {
@@ -29,6 +35,9 @@ final class UnitTest
         }
     }
 
+    /**
+     * Tests basic user creation, roles, and string conversion.
+     */
     private static function testUserCreationAndRoles(): void
     {
         $admin = new AdminUser('Admin', 'admin@example.com');
@@ -42,6 +51,9 @@ final class UnitTest
         self::expect((string)$customer !== '', 'Customer __toString() should not be empty.');
     }
 
+    /**
+     * Verifies invalid email input throws an exception.
+     */
     private static function testEmailValidationThrows(): void
     {
         $thrown = false;
@@ -55,6 +67,9 @@ final class UnitTest
         self::expect($thrown === true, 'Invalid email should throw InvalidArgumentException.');
     }
 
+    /**
+     * Tests login behavior from the shared CanLogin trait.
+     */
     private static function testLoginTrait(): void
     {
         $admin = new AdminUser('Admin', 'admin2@example.com');
@@ -65,6 +80,9 @@ final class UnitTest
         self::expect($admin->login('admin2@example.com', '123') === false, 'Login with short password should fail.');
     }
 
+    /**
+     * Tests password reset and meta updates on admin users.
+     */
     private static function testResettableAdmin(): void
     {
         $admin = new AdminUser('Admin', 'admin3@example.com');
@@ -78,6 +96,9 @@ final class UnitTest
         self::expect(isset($meta['lastPasswordReset']), 'meta should contain lastPasswordReset.');
     }
 
+    /**
+     * Ensures static user instance counter increases correctly.
+     */
     private static function testStaticInstanceCounter(): void
     {
         $before = UserBase::getInstanceCount();

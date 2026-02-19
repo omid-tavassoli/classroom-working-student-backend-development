@@ -12,7 +12,6 @@ final class IntegrationTest
 {
     public static function run(): void
     {
-        // assert_options() is deprecated in PHP 8.3+
         ini_set('assert.exception', '1');
 
         self::testEndToEndUserFlow();
