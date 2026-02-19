@@ -4,7 +4,6 @@ namespace App\Models;
 
 use InvalidArgumentException;
 
-// Abstract base for all users.
 abstract class UserBase
 {
     public const ROLE_ADMIN = 'admin';
@@ -17,7 +16,7 @@ abstract class UserBase
     protected static int $instanceCount = 0;
 
     /** @var array<string, mixed> */
-    private array $meta = []; // used for safe __get/__set demo
+    private array $meta = [];
 
     public function __construct(
         string $name, string $email, string $role)
